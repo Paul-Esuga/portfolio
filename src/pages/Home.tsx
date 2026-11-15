@@ -1,0 +1,2 @@
+import Hero3DSplit from '../components/Hero3DSplit'; import About from '../components/About'; import WorkList from '../components/WorkList'; import CraftBand from '../components/CraftBand'; import Archive from '../components/Archive'; import Contact from '../components/Contact';
+export default function Home() { return <><main><Hero3DSplit/><About/><WorkList/><CraftBand/><Archive/><Contact/></main></>; }
