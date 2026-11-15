@@ -1,0 +1,4 @@
+import { useParallax } from '../hooks/useParallax';
+import ent from '../assets/stills/ent.webp'; import site from '../content/site';
+import TextLift from './TextLift';
+export default function Contact() { const photo=useParallax<HTMLDivElement>(.08); return <footer id="contact" className="contact"><div ref={photo} className="photo" style={{backgroundImage:`url(${ent})`}} aria-hidden="true"/><span className="eyebrow">{site.contactEyebrow}</span><a className="cta" href={`mailto:${site.email}`} aria-label={site.contactCta}><TextLift>{site.contactCta}</TextLift></a><div className="credits"><div><b>{site.creditBy}</b>{site.name}</div><div><b>{site.creditElsewhere}</b>{site.linkedin&&<a href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>}{site.github&&<a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>}</div><div><b>{site.creditLocation}</b>{site.location}</div></div><p className="end">{site.closing}</p></footer>; }
