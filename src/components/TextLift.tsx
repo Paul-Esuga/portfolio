@@ -1,0 +1,2 @@
+import type { CSSProperties } from 'react';
+export default function TextLift({ children }: { children: string }) { return <span className="text-lift" aria-hidden="true">{Array.from(children).map((character,index)=><span className="lift-char" key={`${character}-${index}`} style={{'--index':index} as CSSProperties}><i>{character===' '?'\u00a0':character}</i><i>{character===' '?'\u00a0':character}</i></span>)}</span>; }
