@@ -16,8 +16,8 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: 'predicpau',
-    title: 'PredicPAU',
+    slug: 'probabli',
+    title: 'Probabli',
     status: 'Working demo',
     role: 'Product concept, interface design, full-stack build',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'Express', 'Prisma', 'PostgreSQL'],
@@ -25,7 +25,7 @@ export const projects: Project[] = [
     visual: 'pred',
     sections: [
       { heading: 'Overview', body: [
-        'PredicPAU turns PAU sports fixtures, such as Coupe de Escriva matches, into simulated prediction markets. Students receive virtual currency and buy YES or NO shares on an outcome, and the prices show what the crowd expects to happen.',
+        'Probabli (originally called PredicPAU) turns PAU sports fixtures, such as Coupe de Escriva matches, into simulated prediction markets. Students receive virtual currency and buy YES or NO shares on an outcome, and the prices show what the crowd expects to happen.',
         'The demo has 10 prediction markets and processed mock transactions across all of them. I presented it at the PAU Financial Society’s Demo Day. It is a demonstration, not a production market, and no real money is involved.',
       ] },
       { heading: 'The problem', body: [
@@ -35,12 +35,11 @@ export const projects: Project[] = [
         'I wrote the product proposal, designed the landing page and trader dashboard, and built the demo: a React and TypeScript front end styled with Tailwind CSS, and an Express API using Prisma on PostgreSQL.',
       ] },
       { heading: 'Features', body: [
-        'The demo, proposal and interface designs cover:',
-        '- Prediction markets on campus fixtures, each with YES and NO prices',
+        'The working demo includes:',
+        '- Prediction markets on campus fixtures and events, each with YES and NO prices',
         '- A virtual balance and mock transactions',
-        '- A trader dashboard with balance, win streak, performance chart and recent positions',
-        '- Leaderboards, streak rewards and achievement badges (in the proposal)',
-        '- Admin-managed markets: create, close and resolve (in the proposal)',
+        '- A trader dashboard with balance, win streak, market pulse, a performance chart, upcoming markets and recent positions',
+        'Planned in the proposal: leaderboards, streak rewards, achievement badges, and admin-managed markets.',
       ] },
       { heading: 'Technologies', body: ['React, TypeScript and Tailwind CSS on the front end. Express with Prisma and PostgreSQL on the back end.'] },
       { heading: 'Challenges', body: [
@@ -53,8 +52,8 @@ export const projects: Project[] = [
       ] },
     ],
     gallery: [
-      { src: shots.predicDashboard, alt: 'The PredicPAU trader dashboard design: balance, streak, performance chart and recent positions.', caption: 'Trader dashboard design. Figures are sample data.', wide: true },
-      { src: shots.predicLanding, alt: 'The PredicPAU landing page design with upcoming match markets.', caption: 'Landing page design. Marketing copy and figures are placeholder.' },
+      { src: shots.probabliDashboard, alt: 'The Probabli trader dashboard: virtual balance, win streak, market pulse, a performance chart, upcoming events and recent positions.', caption: 'The working demo’s trader dashboard. Figures are sample data.', wide: true },
+      { src: shots.predicDashboard, alt: 'An early design of the trader dashboard under the working title PredicPAU.', caption: 'An early interface design, under the working title PredicPAU.', wide: true },
     ],
   },
   {
@@ -123,7 +122,7 @@ export const projects: Project[] = [
     slug: 'sibas',
     title: 'SIBAS',
     status: 'Completed',
-    role: 'Group project developer, DTS304',
+    role: 'Database design and setup, group project (DTS304)',
     stack: ['Python', 'Streamlit', 'PostgreSQL', 'pandas', 'Altair', 'bcrypt'],
     summary: 'The Student/Instructor-Based Attendance System: attendance and records for admins, lecturers and students.',
     visual: 'tab',
@@ -132,7 +131,7 @@ export const projects: Project[] = [
         'SIBAS is a role-based web app for recording and reviewing class attendance, built for DTS304 at Pan-Atlantic University. Admins manage users, students and courses. Lecturers take attendance and upload class data. Students see their own attendance and courses.',
       ] },
       { heading: 'The problem', body: ['Attendance and class records scatter across spreadsheets and paper, which makes it hard to see who is falling behind.'] },
-      { heading: 'My contribution', body: ['I built it as part of a group, working in Python and Streamlit on top of a PostgreSQL database.'] },
+      { heading: 'My contribution', body: ['I designed the database schema and set up the PostgreSQL database, defining the tables and making sure every relationship between them was implemented correctly. The team built the Streamlit application on top of it.'] },
       { heading: 'Features', body: [
         '- Three roles, each with its own dashboard: admin, lecturer and student',
         '- Admin tools for users, students, courses, reports and settings',
