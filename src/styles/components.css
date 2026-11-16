@@ -142,11 +142,10 @@
 .slide:not([data-active]){cursor:pointer}
 .slide figure{margin:0}
 .slide-media{position:relative;height:var(--slide-h);overflow:hidden;background:var(--lift)}
-.slide-media img{opacity:calc(1 - var(--a) * .5);position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translate3d(calc(var(--o) * -7%),0,0) scale(1.16);user-select:none;-webkit-user-drag:none}
-.slide--cover .slide-media img{inset:auto;left:50%;top:50%;width:auto;height:84%;aspect-ratio:1;transform:translate(-50%,-50%)}
+.slide-media:not(.slide-media--cover) img{opacity:calc(1 - var(--a) * .5);position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translate3d(calc(var(--o) * -7%),0,0) scale(1.16);user-select:none;-webkit-user-drag:none}
 .slide figcaption{margin-top:var(--s-3)}
 .slide h3{font-size:var(--t-1);line-height:var(--lh-head);letter-spacing:var(--tr-head)}
-@media (prefers-reduced-motion:reduce){.slide{transform:none}.slide-media img{transform:none}.slide--cover .slide-media img{transform:translate(-50%,-50%)}}
+@media (prefers-reduced-motion:reduce){.slide{transform:none}.slide-media:not(.slide-media--cover) img{transform:none}.amb{transform:none!important}.vinyl{animation:none!important;transition:none}}
 .reel-wrap{--p:0}
 .reel-bar{position:relative;height:2px;background:var(--line);overflow:hidden}
 .reel-bar i{position:absolute;inset:0;background:var(--flame);transform-origin:0 50%;transform:scaleX(calc(.1 + var(--p) * .9))}
@@ -229,3 +228,13 @@
 @media (max-width:519px){.mark-full{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}.mark-short{display:inline}}
 @media (max-width:519px){.bar{padding-inline:12px}.nav a{padding:.5rem .4rem;font-size:.75rem}}
 @media (max-width:379px){.mark{display:none}.bar{justify-content:center}}
+
+/* ---------- album covers: the sleeve, a record sliding out, and the cover's own colours behind ---------- */
+.slide-media--cover{--label:var(--amber);background:var(--abyss)}
+.amb{position:absolute;inset:-14%;width:128%;height:128%;max-width:none;object-fit:cover;filter:blur(36px) saturate(1.6) brightness(.5);transform:translate3d(calc(var(--o) * -5%),0,0);opacity:calc(1 - var(--a) * .4)}
+.pair{position:absolute;left:50%;top:50%;height:80%;aspect-ratio:1.4;transform:translate(-50%,-50%)}
+.sleeve{position:absolute;left:0;top:0;height:100%;width:auto;aspect-ratio:1;z-index:2;box-shadow:0 22px 50px rgb(0 0 0 / .55);user-select:none;-webkit-user-drag:none}
+.vinyl{position:absolute;right:0;top:7%;height:86%;aspect-ratio:1;z-index:1;border-radius:50%;translate:-7% 0;transition:translate .9s cubic-bezier(.2,.8,.2,1);
+  background:radial-gradient(circle,var(--abyss) 0 3%,var(--label) 3.4% 17%,transparent 17.4%),repeating-radial-gradient(circle,#0d0d0d 0 2px,#1c1c1c 2px 3px);box-shadow:inset 0 0 0 1px rgb(255 255 255 / .07),0 10px 30px rgb(0 0 0 / .45)}
+.slide[data-active] .vinyl{translate:0 0;animation:spin 9s linear infinite}
+@keyframes spin{to{rotate:360deg}}

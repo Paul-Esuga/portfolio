@@ -1,0 +1,6 @@
+
+# Private material, never commit
+reference-private/
+*.docx
+*.pdf
+.env*

@@ -1,15 +1,16 @@
 import { stills } from './stills'
 
-export type Tile = { title: string; kind: string; by?: string; img: string; ar: number; alt: string }
+/** `label` colours the centre of the record that slides out of a square album cover. */
+export type Tile = { title: string; kind: string; by?: string; img: string; ar: number; alt: string; label?: string }
 // Order sets the rhythm of the reel: wide frames and square covers alternate on purpose.
 export const reel: Tile[] = [
   { title: 'BoJack Horseman', kind: 'Television', img: stills.bjSunset, ar: 1.79, alt: 'BoJack watching a pink sunset over the sea.' },
-  { title: 'CALL ME IF YOU GET LOST', kind: 'Music', by: 'Tyler, The Creator', img: stills.cmiyl, ar: 1, alt: 'Album art: a man in a pale blue cardigan carrying two suitcases.' },
+  { title: 'CALL ME IF YOU GET LOST', kind: 'Music', by: 'Tyler, The Creator', img: stills.cmiyl, ar: 1, alt: 'Album art: a man in a pale blue cardigan carrying two suitcases.', label: '#7ec8d8' },
   { title: 'Breaking Bad', kind: 'Television', img: stills.bb, ar: 1.78, alt: 'A white van below a red mesa at dusk.' },
-  { title: 'Work of Art', kind: 'Music', by: 'Asake', img: stills.asake, ar: 1, alt: 'Album art: Asake in a pinstripe suit in front of paintings.' },
+  { title: 'Work of Art', kind: 'Music', by: 'Asake', img: stills.asake, ar: 1, alt: 'Album art: Asake in a pinstripe suit in front of paintings.', label: '#d83a2e' },
   { title: 'Oppenheimer', kind: 'Film', img: stills.opp, ar: 1.78, alt: 'Black-and-white portrait of a man in round glasses and a pinstripe suit.' },
   { title: 'Game of Thrones', kind: 'Television', img: stills.got, ar: 1.78, alt: 'A rider with a banner on a hill, a castle in the distance.' },
-  { title: 'Laughing So Hard, It Hurts', kind: 'Music', by: 'MAVI', img: stills.mavi, ar: 1, alt: 'Album art: a two-faced bust on a plinth.' },
+  { title: 'Laughing So Hard, It Hurts', kind: 'Music', by: 'MAVI', img: stills.mavi, ar: 1, alt: 'Album art: a two-faced bust on a plinth.', label: '#e1b24a' },
   { title: 'How I Met Your Mother', kind: 'Television', img: stills.umbrellas, ar: 1.81, alt: 'A rainy street full of yellow umbrellas.' },
   { title: 'Ben 10', kind: 'Television', img: stills.ben10, ar: 1.78, alt: 'Ben lying back in a green and black jacket, wrapped in an orange glow.' },
   { title: 'Avengers: Infinity War', kind: 'Film', img: stills.thanos, ar: 2.39, alt: 'Thanos looking out at a sunset.' },

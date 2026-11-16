@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from 'react'
 import { index, reel } from '../content/archive'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
@@ -102,9 +102,19 @@ export default function Archive() {
               aria-label={`${i + 1} of ${reel.length}: ${t.title}`} data-active={i === active ? '' : undefined}
               onClick={() => { if (!justDragged.current && i !== active) goTo(i) }}>
               <figure>
-                <div className="slide-media">
-                  <img src={t.img} alt={t.alt} loading="lazy" decoding="async" draggable={false} />
-                </div>
+                {t.ar < 1.2 ? (
+                  <div className="slide-media slide-media--cover" style={t.label ? ({ '--label': t.label } as CSSProperties) : undefined}>
+                    <img className="amb" src={t.img} alt="" aria-hidden="true" loading="lazy" decoding="async" draggable={false} />
+                    <div className="pair">
+                      <span className="vinyl" aria-hidden="true" />
+                      <img className="sleeve" src={t.img} alt={t.alt} loading="lazy" decoding="async" draggable={false} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="slide-media">
+                    <img src={t.img} alt={t.alt} loading="lazy" decoding="async" draggable={false} />
+                  </div>
+                )}
                 <figcaption><h3>{t.title}</h3><p className="meta">{[t.kind, t.by].filter(Boolean).join(', ')}</p></figcaption>
               </figure>
             </div>

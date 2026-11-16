@@ -85,6 +85,8 @@ src/
 
 Lighthouse on the live site (Paul's run, with browser extensions active, so it was unreliable): mobile 32, desktop 39 performance; 100 accessibility; 73 best practices; 92 SEO. A local profile at 4x CPU slowdown showed about 170 ms blocking time, so most of the gap is extensions (Grammarly appears in the report). Re-run in an incognito window before judging.
 
+9. **Chunk 10 (supersedes chunk 9, includes everything in it):** album covers in the carousel show a sleeve with a record sliding out (label colour from `label` in `archive.ts`) over a blurred copy of the cover, instead of a flat colour slab. The record spins on the active slide; reduced motion stops it.
+
 ## 9. To do (in priority order)
 1. **Re-run Lighthouse in an incognito window** (extensions disabled) on the live URL, mobile and desktop, and fix anything real that remains.
 2. **Content:** Paul to confirm the drafted lessons and the SIBAS contribution wording; the two cybersecurity challenge bullets and its lesson were written by an earlier agent, not from Paul's words, so confirm or replace them; real SIBAS app screenshot when Paul has one.
