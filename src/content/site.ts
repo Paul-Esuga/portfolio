@@ -1,14 +1,39 @@
-const site = {
- name:'Paul Esuga',email:'majiyeboesuga8@gmail.com',linkedin:'',github:'',location:'Pan-Atlantic University, Nigeria',tagline:'Software, security, and an unreasonable number of films.',
- navLabel:'Main',nav:[{id:'about',label:'About'},{id:'work',label:'Work'},{id:'archive',label:'Archive'},{id:'contact',label:'Contact'}],
- heroRole:'Software engineer · Nigeria',heroIntro:'I build software, test it for weak spots, and care a lot about how things are made. Second-year at Pan-Atlantic University.',heroScroll:'Scroll',
- aboutEyebrow:'01 — The person behind the code',aboutParagraphs:["I'm Paul. I study Software Engineering at Pan-Atlantic University, and I like problems that have a bit of resistance in them.","Most of my time goes into building things and then trying to break them. I've done security assessments and written up VAPT reports, and I've built software on the other side of that fence too. AI, fintech and product thinking keep pulling me in.","Outside the screen it's mostly films, television, albums and podcasts. I notice framing, pacing and the choices nobody asked for. That habit follows me into code."],focus:['Software','AI & ML','Cybersecurity','Fintech','Product'],
- workEyebrow:'02 — Selected work',workTitle:'Four things',workTitleEnd:"I've worked on",workIntro:'Some finished, some still in development. Each is marked.',caseStudyLink:'Read the case study →',projectLinkLabel:'View case study',
- craftLead:"I've always admired people who care deeply about their craft. The intention behind a well-directed film, a carefully composed frame or a well-made record is something I try to",craftEmphasis:'bring into what I build.',
- archiveEyebrow:'03 — Beyond the code',archiveTitle:'The archive',archiveIntro:"Films, shows, records and podcasts that shaped my taste. Hover a title. Tyler, The Creator's art direction is the standard I keep measuring intention against.",
- contactEyebrow:'04 — Closing credits',contactCta:'Say hello',creditBy:'Written, designed & built by',creditElsewhere:'Elsewhere',creditLocation:'Filmed on location',closing:'Thanks for watching. No post-credits scene. Yet.',
- notFoundEyebrow:'Out of frame',notFoundTitle:"That page isn't here.",notFoundLink:'Back to the portfolio →',allWork:'← All work',next:'Next',
- archiveStill:'Still',projectStatus:'Status',projectRole:'Role',projectStack:'Stack',statementLabel:'Statement',heroImageAlt:'Three-panel Breaking Bad desert still',aboutImageAlt:'Still from The Dark Knight Rises',visualAlt:'Illustrative project visual',
- visual:{illustrative:'Illustrative concept',notClient:'Illustrative · not client data',interface:'Interface representation',sampleData:'Illustrative data',fixtureA:'Fixture A wins',fixtureB:'Fixture B wins',userPrompt:'Can you recommend something for sensitive skin?',assistantReply:'Here are a few options from the catalogue…',student:'Student',class:'Class',teacher:'Teacher',severity:[['Critical','22%','2'],['High','44%','4'],['Medium','66%','6'],['Low','30%','3']],workflow:['Scope','Discover','Validate','Rate','Report'],students:[['Student 001','Class A','Teacher 1'],['Student 002','Class A','Teacher 1'],['Student 003','Class B','Teacher 2']]}
-};
-export default site;
+export const site = {
+  name: 'Paul Esuga',
+  email: 'majiyeboesuga8@gmail.com',
+  linkedin: '', // add a URL to show the link
+  github: '', // add a URL to show the link
+  location: 'Nigeria',
+  intro: 'Software engineering, cybersecurity, and a long list of films I won’t shut up about.',
+  heroAlt: 'A white van parked below a red mesa at dusk, from Breaking Bad.',
+}
+
+export type HeroCard = { title: string; text: string; cta: string; to: string; tone: 'ember' | 'lift' | 'chalk' }
+export const heroCards: HeroCard[] = [
+  { title: 'Software', text: 'Software Engineering student at Pan-Atlantic University. I build full-stack products and sweat the small details.', cta: 'See the work', to: '/#work', tone: 'ember' },
+  { title: 'Security', text: 'CEH-certified. I run vulnerability assessments, write VAPT reports and document how to fix what I find.', cta: 'Read the case study', to: '/work/cybersecurity-vapt', tone: 'lift' },
+  { title: 'Cinema', text: 'Films, television, albums and podcasts shape how I build. The archive is further down.', cta: 'Open the archive', to: '/#archive', tone: 'chalk' },
+]
+
+export const nav = [
+  { id: 'about', label: 'About' },
+  { id: 'work', label: 'Work' },
+  { id: 'archive', label: 'Archive' },
+  { id: 'contact', label: 'Contact' },
+]
+
+export const about = {
+  heading: 'I like problems that push back.',
+  paragraphs: [
+    'I’m Paul, a Software Engineering student at Pan-Atlantic University. Most of my time goes into building things and then trying to break them.',
+    'I’ve carried out security assessments and written VAPT reports, and I’ve built software on the other side of that fence too. AI, fintech and product thinking keep pulling me in.',
+    'Away from the screen it’s films, television, albums and podcasts. I notice framing, pacing and the choices nobody asked for, and that habit follows me into code.',
+  ],
+  focus: ['Software engineering', 'AI and machine learning', 'Cybersecurity', 'Fintech', 'Product'],
+  alt: 'A still from The Dark Knight Rises: Alfred at dusk.',
+}
+
+export const quote =
+  'I’ve always admired people who care deeply about their craft. The intention behind a well-directed film, a carefully composed frame or a well-made record is something I try to bring into what I build.'
+
+export const credit = 'Stills and artwork belong to their respective owners and are used here as personal references.'

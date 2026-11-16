@@ -1,0 +1,14 @@
+import bb from '../assets/stills/bb.webp'
+import tdkr from '../assets/stills/tdkr.webp'
+import ent from '../assets/stills/ent.webp'
+import bjSunset from '../assets/stills/bjSunset.webp'
+import thanos from '../assets/stills/thanos.webp'
+import got from '../assets/stills/got.webp'
+import fleabag from '../assets/stills/fleabag.webp'
+import umbrellas from '../assets/stills/umbrellas.webp'
+import opp from '../assets/stills/opp.webp'
+import mavi from '../assets/stills/mavi.webp'
+import asake from '../assets/stills/asake.webp'
+import cmiyl from '../assets/stills/cmiyl.webp'
+
+export const stills = { bb, tdkr, ent, bjSunset, thanos, got, fleabag, umbrellas, opp, mavi, asake, cmiyl }

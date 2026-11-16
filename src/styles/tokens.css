@@ -1,1 +1,42 @@
-:root{--ink:#120c0a;--cream:#efe3cf;--sun:#d9692f;--brick:#6e2a1f;--dim:rgba(239,227,207,.62);--line:rgba(239,227,207,.16);--display:"Recoleta","Fraunces",Georgia,serif;--body:"Instrument Sans",system-ui,sans-serif;--pad:clamp(20px,5vw,72px);--ease:cubic-bezier(.2,.8,.2,1);--motion:cubic-bezier(.65,0,.2,1)}
+/* tokens.css — darker pool-teal + sunset system. Contrast: chalk/ground 14.0, flame/ground 5.8,
+   amber/ground 8.8, abyss/flame 6.8, chalk/ember 6.9, chalk/teal card 8.6. */
+:root {
+  --ground: #0a2227;   /* page ground (dark pool teal) */
+  --abyss:  #050f12;   /* deepest ground, text on light/pop fills */
+  --lift:   #164850;   /* lifted teal: card faces, hover grounds */
+  --chalk:  #f6ebd7;
+  --flame:  #ff6a3d;   /* the pop */
+  --amber:  #f5b13d;
+  --ember:  #8a3322;   /* muted red */
+
+  --text: var(--chalk);
+  --text-dim: color-mix(in srgb, var(--chalk) 72%, transparent);
+  --line: color-mix(in srgb, var(--chalk) 16%, transparent);
+  --on-pop: var(--abyss);
+
+  /* legacy names */
+  --pool: var(--ground); --ink: var(--abyss); --cream: var(--chalk); --sun: var(--amber); --brick: var(--ember); --dim: var(--text-dim);
+
+  --disp: "Recoleta", "Fraunces", Georgia, serif;
+  --body: "Instrument Sans", system-ui, sans-serif;
+  --soft: "SOFT" 100, "WONK" 0;
+
+  --t--1: .8125rem; --t-0: 1.0625rem;
+  --t-1: clamp(1.125rem, 1.05rem + .4vw, 1.4375rem);
+  --t-2: clamp(1.4rem, 1.2rem + 1vw, 1.875rem);
+  --t-3: clamp(1.75rem, 1.4rem + 1.7vw, 2.5rem);
+  --t-4: clamp(2.2rem, 1.6rem + 3vw, 3.35rem);
+  --t-5: clamp(2.75rem, 1.8rem + 4.8vw, 4.5rem);
+  --t-6: clamp(3.4rem, 1.6rem + 9vw, 6.5rem);
+  --t-7: clamp(4rem, 1.5rem + 12vw, 9.5rem);
+  --lh-tight: .94; --lh-head: 1.08; --lh-body: 1.6;
+  --tr-display: -.04em; --tr-head: -.025em; --measure: 60ch;
+
+  --s-1: .25rem; --s-2: .5rem; --s-3: 1rem; --s-4: 1.5rem; --s-5: 2rem; --s-6: 3rem; --s-7: 4rem; --s-8: 6rem; --s-9: 8rem; --s-10: 12rem;
+  --space-section: clamp(var(--s-8), 11vw, var(--s-10));
+
+  --cols: 4; --gutter: var(--s-3); --margin: clamp(20px, 5vw, 72px); --pad: var(--margin); --maxw: 1440px;
+  --ease-out: cubic-bezier(.2,.8,.2,1); --ease-io: cubic-bezier(.65,0,.2,1);
+}
+@media (min-width: 640px)  { :root { --cols: 8;  --gutter: var(--s-4); } }
+@media (min-width: 1024px) { :root { --cols: 12; --gutter: var(--s-5); } }
