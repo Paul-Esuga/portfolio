@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProjectVisual from '../components/ProjectVisual'
 import TextLift from '../components/TextLift'
@@ -13,6 +14,7 @@ function Body({ items }: { items: string[] }) {
 export default function ProjectPage() {
   const { slug } = useParams()
   const i = projects.findIndex((p) => p.slug === slug)
+  useEffect(() => { document.title = i < 0 ? 'Not found | Paul Esuga' : `${projects[i].title} | Paul Esuga` }, [i])
   if (i < 0) return <NotFound />
   const p = projects[i], next = projects[(i + 1) % projects.length]
   return (
@@ -33,7 +35,16 @@ export default function ProjectPage() {
           <div className="case-body"><Body items={s.body} /></div>
         </section>
       ))}
-      {p.gallery?.map((g) => <figure key={g.src} className="container"><img src={g.src} alt={g.alt} /><figcaption className="meta">{g.caption}</figcaption></figure>)}
+      {p.gallery && (
+        <section className="container case-gallery" aria-label="Screens and diagrams">
+          {p.gallery.map((g) => (
+            <figure key={g.src} className={g.wide ? 'is-wide' : undefined}>
+              <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
+              <figcaption className="meta">{g.caption}</figcaption>
+            </figure>
+          ))}
+        </section>
+      )}
       <Link to={`/work/${next.slug}`} className="container next lift-host">
         <span className="meta">Next case study</span>
         <span className="next-title"><TextLift>{next.title}</TextLift></span>

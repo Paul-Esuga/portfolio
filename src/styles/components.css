@@ -168,3 +168,10 @@
   .case-sec h2{grid-column:1/4}.case-body{grid-column:5/12}
 }
 .lift-w{display:inline-block;white-space:nowrap}
+
+/* case-study gallery */
+.case-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--s-5);align-items:start;padding-block:var(--s-6);border-top:1px solid var(--line)}
+.case-gallery figure{margin:0}
+.case-gallery .is-wide{grid-column:1/-1}
+.case-gallery img{width:100%;height:auto;box-shadow:0 0 0 1px var(--line)}
+.case-gallery figcaption{margin-top:var(--s-2)}
