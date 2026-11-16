@@ -1,8 +1,8 @@
 export const site = {
   name: 'Paul Esuga',
   email: 'majiyeboesuga8@gmail.com',
-  linkedin: '', // add a URL to show the link
-  github: '', // add a URL to show the link
+  linkedin: 'https://www.linkedin.com/in/mesuga',
+  github: 'https://github.com/Paul-Esuga',
   location: 'Nigeria',
   intro: 'Software engineering, cybersecurity, and a long list of films I won’t shut up about.',
   heroAlt: 'A white van parked below a red mesa at dusk, from Breaking Bad.',
@@ -18,6 +18,7 @@ export const heroCards: HeroCard[] = [
 export const nav = [
   { id: 'about', label: 'About' },
   { id: 'work', label: 'Work' },
+  { id: 'experience', label: 'Experience' },
   { id: 'archive', label: 'Archive' },
   { id: 'contact', label: 'Contact' },
 ]
