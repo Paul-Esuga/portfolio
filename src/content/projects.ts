@@ -1,5 +1,10 @@
 import { shots } from './shots'
 
+export type Tone = 'flame' | 'ember' | 'lift' | 'abyss' | 'chalk'
+export type Cover =
+  | { type: 'shot'; src: string; alt: string; tone: Tone }
+  | { type: 'facts'; tone: Tone; big: string; bigLabel: string; lines: string[] }
+
 export type Project = {
   slug: string
   title: string
@@ -7,7 +12,8 @@ export type Project = {
   role: string
   stack: string[]
   summary: string
-  visual: 'pred' | 'sec' | 'bot' | 'tab'
+  /** The tile on the home page and the lead image on the case page. Real screenshots where they exist, otherwise facts set in type. */
+  cover: Cover
   /** Body items starting with "- " render as list items. Sections with an empty body are skipped. */
   sections: { heading: string; body: string[] }[]
   /** `wide` makes the figure span the full gallery width. */
@@ -22,7 +28,7 @@ export const projects: Project[] = [
     role: 'Product concept, interface design, full-stack build',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'Express', 'Prisma', 'PostgreSQL'],
     summary: 'A gamified prediction market for PAU students, built around campus sport.',
-    visual: 'pred',
+    cover: { type: 'shot', src: shots.probabliDashboard, alt: 'The Probabli trader dashboard with virtual balance, win streak, market pulse and upcoming events.', tone: 'flame' },
     sections: [
       { heading: 'Overview', body: [
         'Probabli (originally called PredicPAU) turns PAU sports fixtures, such as Coupe de Escriva matches, into simulated prediction markets. Students receive virtual currency and buy YES or NO shares on an outcome, and the prices show what the crowd expects to happen.',
@@ -63,7 +69,7 @@ export const projects: Project[] = [
     role: 'Cybersecurity analyst, Panoramic Synergy Enterprises (Aug 2022 to Sep 2024)',
     stack: ['Nessus', 'Metasploit', 'Burp Suite', 'OWASP ZAP', 'Kali Linux', 'Pacu', 'ScoutSuite'],
     summary: 'Two years of vulnerability assessments and penetration tests, finished as CVSS-scored client reports.',
-    visual: 'sec',
+    cover: { type: 'facts', tone: 'abyss', big: '80%+', bigLabel: 'remediation rate on CVSS-scored client reports', lines: ['50+ critical vulnerabilities identified', '500 to 1,000+ endpoints and cloud assets assessed'] },
     sections: [
       { heading: 'Overview', body: [
         'Over two years as a cybersecurity analyst I ran vulnerability assessments across 500 to 1,000+ endpoints and network and cloud assets. I identified 50+ critical vulnerabilities, and the CVSS-scored reports I delivered led to a remediation rate above 80%.',
@@ -99,7 +105,7 @@ export const projects: Project[] = [
     role: 'AI/ML and DevOps intern, Datamellon (Jul to Aug 2026): chatbot build and front-end UI',
     stack: ['Amazon Bedrock', 'Amazon S3', 'Amazon OpenSearch', 'AWS Lambda'],
     summary: 'A retrieval-augmented chatbot on Amazon Bedrock that answers from a client’s own documents.',
-    visual: 'bot',
+    cover: { type: 'facts', tone: 'ember', big: 'RAG', bigLabel: 'Retrieval-augmented generation on Amazon Bedrock', lines: ['Client documents ingested into a knowledge base', 'Front-end UI designed from concept to build'] },
     sections: [
       { heading: 'Overview', body: [
         'A retrieval-augmented generation (RAG) chatbot proof of concept built on Amazon Bedrock at Datamellon, an AWS Advanced Tier Services Partner, for a client platform focused on women’s products. Company documents are ingested into a knowledge base, and the chatbot answers questions from that content in under 5 to 10 seconds.',
@@ -125,7 +131,7 @@ export const projects: Project[] = [
     role: 'Database design and setup, group project (DTS304)',
     stack: ['Python', 'Streamlit', 'PostgreSQL', 'pandas', 'Altair', 'bcrypt'],
     summary: 'The Student/Instructor-Based Attendance System: attendance and records for admins, lecturers and students.',
-    visual: 'tab',
+    cover: { type: 'shot', src: shots.sibasErd, alt: 'Entity relationship diagram for SIBAS: users, students, lecturers, courses, enrollments, attendance sessions and records.', tone: 'lift' },
     sections: [
       { heading: 'Overview', body: [
         'SIBAS is a role-based web app for recording and reviewing class attendance, built for DTS304 at Pan-Atlantic University. Admins manage users, students and courses. Lecturers take attendance and upload class data. Students see their own attendance and courses.',

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import ProjectVisual from '../components/ProjectVisual'
+import ProjectCover from '../components/ProjectCover'
 import TextLift from '../components/TextLift'
 import { projects } from '../content/projects'
 import NotFound from './NotFound'
@@ -17,6 +17,7 @@ export default function ProjectPage() {
   useEffect(() => { document.title = i < 0 ? 'Not found | Paul Esuga' : `${projects[i].title} | Paul Esuga` }, [i])
   if (i < 0) return <NotFound />
   const p = projects[i], next = projects[(i + 1) % projects.length]
+  const gallery = (p.gallery ?? []).filter((g) => p.cover.type !== 'shot' || g.src !== p.cover.src)
   return (
     <article className="case">
       <header className="container case-head">
@@ -28,16 +29,16 @@ export default function ProjectPage() {
           <div><dt className="meta">Stack</dt><dd>{p.stack.join(', ')}</dd></div>
         </dl>
       </header>
-      <div className="container"><div className="case-vis"><ProjectVisual kind={p.visual} /></div></div>
+      <div className="container"><div className="case-vis"><ProjectCover cover={p.cover} /></div></div>
       {p.sections.filter((s) => s.body.length > 0).map((s) => (
         <section key={s.heading} className="container grid case-sec">
           <h2>{s.heading}</h2>
           <div className="case-body"><Body items={s.body} /></div>
         </section>
       ))}
-      {p.gallery && (
+      {gallery.length > 0 && (
         <section className="container case-gallery" aria-label="Screens and diagrams">
-          {p.gallery.map((g) => (
+          {gallery.map((g) => (
             <figure key={g.src} className={g.wide ? 'is-wide' : undefined}>
               <img src={g.src} alt={g.alt} loading="lazy" decoding="async" />
               <figcaption className="meta">{g.caption}</figcaption>

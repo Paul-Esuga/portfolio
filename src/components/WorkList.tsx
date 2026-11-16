@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { projects } from '../content/projects'
-import ProjectVisual from './ProjectVisual'
+import ProjectCover from './ProjectCover'
 import TextLift from './TextLift'
 
 export default function WorkList() {
@@ -14,7 +14,7 @@ export default function WorkList() {
         <ol className="projects">
           {projects.map((p, i) => (
             <li key={p.slug} className={`proj grid${i % 2 ? ' proj--flip' : ''}`}>
-              <Link to={`/work/${p.slug}`} className="proj-vis" aria-hidden="true" tabIndex={-1}><ProjectVisual kind={p.visual} /></Link>
+              <Link to={`/work/${p.slug}`} className="proj-vis" aria-hidden="true" tabIndex={-1}><ProjectCover cover={p.cover} /></Link>
               <div className="proj-info">
                 <p className="meta">{p.status}</p>
                 <h3><Link to={`/work/${p.slug}`} className="lift-host"><TextLift>{p.title}</TextLift></Link></h3>
