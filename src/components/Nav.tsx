@@ -1,5 +1,40 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import site from '../content/site';
-const sections = site.nav.map(item=>item.id);
-export default function Nav() { const loc = useLocation(); const [active,setActive] = useState(''); const [hover,setHover] = useState(''); const [pill,setPill] = useState({width:0,left:0}); useEffect(() => { if (loc.pathname !== '/') return; const set = () => { let found=''; sections.forEach(id => { const el=document.getElementById(id); if(el && el.getBoundingClientRect().top < innerHeight*.45) found=id; }); setActive(found); }; addEventListener('scroll',set,{passive:true}); set(); return () => removeEventListener('scroll',set); },[loc.pathname]); const href=(id:string)=>loc.pathname==='/'?`#${id}`:`/#${id}`; const place=(id:string,el:HTMLAnchorElement)=>{setHover(id);setPill({width:el.offsetWidth,left:el.offsetLeft});}; const shown=hover||active; return <header className="bar"><Link className="mark" to="/" onClick={()=>scrollTo({top:0})}>{site.name}</Link><nav className="nav" aria-label={site.navLabel} onMouseLeave={()=>setHover('')} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget as Node))setHover('')}}><span className="pill" style={{opacity:shown?1:0,width:pill.width,transform:`translateX(${pill.left}px)`}} />{site.nav.map(({id,label})=><a key={id} className={shown===id?'on':''} href={href(id)} onMouseEnter={e=>place(id,e.currentTarget)} onFocus={e=>place(id,e.currentTarget)}>{label}</a>)}</nav></header>; }
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { nav, site } from '../content/site'
+import { useActiveSection } from '../hooks/useActiveSection'
+
+export default function Nav() {
+  const { pathname } = useLocation()
+  const onHome = pathname === '/'
+  const active = useActiveSection(nav.map((n) => n.id), onHome)
+  const [hover, setHover] = useState<string | null>(null)
+  const refs = useRef<Record<string, HTMLAnchorElement | null>>({})
+  const pill = useRef<HTMLSpanElement>(null)
+  const current = hover ?? active
+
+  useLayoutEffect(() => {
+    const el = current ? refs.current[current] : null
+    const p = pill.current
+    if (!p) return
+    if (!el) { p.style.opacity = '0'; return }
+    p.style.opacity = '1'
+    p.style.width = `${el.offsetWidth}px`
+    p.style.transform = `translateX(${el.offsetLeft}px)`
+  }, [current])
+
+  return (
+    <header className="bar">
+      <Link className="mark" to="/" aria-label={`${site.name}, home`}>{site.name}</Link>
+      <nav aria-label="Main" className="nav" onMouseLeave={() => setHover(null)}>
+        <span className="pill" ref={pill} data-hover={hover ? '' : undefined} aria-hidden="true" />
+        {nav.map((n) => (
+          <Link key={n.id} to={`/#${n.id}`} ref={(el) => { refs.current[n.id] = el }}
+            className={current === n.id ? 'on' : ''} aria-current={active === n.id ? 'true' : undefined}
+            onMouseEnter={() => setHover(n.id)} onFocus={() => setHover(n.id)} onBlur={() => setHover(null)}>
+            {n.label}
+          </Link>
+        ))}
+      </nav>
+    </header>
+  )
+}

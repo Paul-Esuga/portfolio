@@ -1,3 +1,43 @@
-import { Link, useParams } from 'react-router-dom';
-import { projects } from '../content/projects'; import ProjectVisual from '../components/ProjectVisual'; import site from '../content/site';
-export default function ProjectPage() { const {slug}=useParams(); const i=projects.findIndex(p=>p.slug===slug); const p=projects[i]; if(!p) return null; const next=projects[(i+1)%projects.length]; return <main className="project-page"><div className="p-head"><Link className="back" to="/#work">{site.allWork}</Link><h1>{p.title}</h1><div className="meta"><div><b>{site.projectStatus}</b>{p.status}</div><div><b>{site.projectRole}</b>{p.role}</div><div><b>{site.projectStack}</b>{p.stack.join(' · ')}</div></div></div><div className="p-vis"><ProjectVisual type={p.visual} full/></div>{p.gallery?.length ? <div className="gallery">{p.gallery.map(image=><figure key={image.src}><img src={image.src} alt={image.alt}/><figcaption>{image.caption}</figcaption></figure>)}</div> : null}{p.sections.filter(s=>s.body.length).map(s=><section className="sec" key={s.heading}><h2>{s.heading}</h2>{s.body.every(x=>x.startsWith('- '))?<ul>{s.body.map(x=><li key={x}>{x.slice(2)}</li>)}</ul>:<div>{s.body.map(x=><p key={x}>{x}</p>)}</div>}</section>)}<Link className="nextp" to={`/work/${next.slug}`}><span className="eyebrow">{site.next}</span><span>{next.title}</span></Link></main>; }
+import { Link, useParams } from 'react-router-dom'
+import ProjectVisual from '../components/ProjectVisual'
+import TextLift from '../components/TextLift'
+import { projects } from '../content/projects'
+import NotFound from './NotFound'
+
+function Body({ items }: { items: string[] }) {
+  const list = items.filter((i) => i.startsWith('- '))
+  const prose = items.filter((i) => !i.startsWith('- '))
+  return (<>{prose.map((t, i) => <p key={i}>{t}</p>)}{list.length > 0 && <ul>{list.map((t) => <li key={t}>{t.slice(2)}</li>)}</ul>}</>)
+}
+
+export default function ProjectPage() {
+  const { slug } = useParams()
+  const i = projects.findIndex((p) => p.slug === slug)
+  if (i < 0) return <NotFound />
+  const p = projects[i], next = projects[(i + 1) % projects.length]
+  return (
+    <article className="case">
+      <header className="container case-head">
+        <Link to="/#work" className="back-link">Back to all work</Link>
+        <h1>{p.title}</h1>
+        <dl className="case-meta">
+          <div><dt className="meta">Status</dt><dd>{p.status}</dd></div>
+          <div><dt className="meta">Role</dt><dd>{p.role}</dd></div>
+          <div><dt className="meta">Stack</dt><dd>{p.stack.join(', ')}</dd></div>
+        </dl>
+      </header>
+      <div className="container"><div className="case-vis"><ProjectVisual kind={p.visual} /></div></div>
+      {p.sections.filter((s) => s.body.length > 0).map((s) => (
+        <section key={s.heading} className="container grid case-sec">
+          <h2>{s.heading}</h2>
+          <div className="case-body"><Body items={s.body} /></div>
+        </section>
+      ))}
+      {p.gallery?.map((g) => <figure key={g.src} className="container"><img src={g.src} alt={g.alt} /><figcaption className="meta">{g.caption}</figcaption></figure>)}
+      <Link to={`/work/${next.slug}`} className="container next lift-host">
+        <span className="meta">Next case study</span>
+        <span className="next-title"><TextLift>{next.title}</TextLift></span>
+      </Link>
+    </article>
+  )
+}

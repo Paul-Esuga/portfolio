@@ -1,8 +1,41 @@
-import { useState } from 'react';
-import { archive } from '../content/archive';
-import bb from '../assets/stills/bb.webp'; import bj from '../assets/stills/bj.webp'; import himym from '../assets/stills/himym.webp';
-import { useReveal } from '../hooks/useReveal';
-import site from '../content/site';
-import TextLift from './TextLift';
-const images:Record<string,string>={bb,bj,himym};
-export default function Archive() { const [current,setCurrent]=useState(''); const intro=useReveal<HTMLDivElement>(); return <section id="archive"><div className="wrap arch"><div ref={intro} className="sticky rv"><span className="eyebrow">{site.archiveEyebrow}</span><h2>{site.archiveTitle.split(' ')[0]} <em>{site.archiveTitle.split(' ')[1]}</em></h2><p>{site.archiveIntro}</p><div className="peek" aria-hidden="true">{Object.entries(images).map(([key,src])=><i key={key} className={current===key?'on':''} style={{backgroundImage:`url(${src})`}}/>)}<span>{site.archiveStill}</span></div></div><div className="archive-list">{archive.map(group=><div className="cat rv" key={group.category}><span className="eyebrow">{group.category}</span>{group.items.map(item=><div className="row" key={item.title} aria-label={`${item.title}${item.artist?` — ${item.artist}`:''}`} tabIndex={0} onMouseEnter={()=>setCurrent(item.key||'')} onFocus={()=>setCurrent(item.key||'')} onMouseLeave={()=>setCurrent('')} onBlur={()=>setCurrent('')} onClick={()=>setCurrent(current===item.key?'':item.key||'')}><span><TextLift>{item.title}</TextLift></span><small>{item.artist||''}</small></div>)}</div>)}</div></div></section>; }
+import { useRef, type CSSProperties } from 'react'
+import { index, reel } from '../content/archive'
+import { useReducedMotion } from '../hooks/useReducedMotion'
+
+export default function Archive() {
+  const track = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
+  const go = (dir: 1 | -1) => track.current?.scrollBy({ left: dir * track.current.clientWidth * 0.8, behavior: reduced ? 'auto' : 'smooth' })
+  return (
+    <section id="archive" className="archive section">
+      <div className="container">
+        <header className="grid arch-head">
+          <h2>Beyond the code</h2>
+          <p className="lead">Films, shows, records and podcasts that shaped my taste. I think of them as influences, in the same way I think of the people whose work I read.</p>
+        </header>
+      </div>
+      <div className="reel" ref={track} tabIndex={0} role="region" aria-label="Archive gallery. Scroll sideways to browse.">
+        {reel.map((t) => (
+          <figure className="tile" key={t.title} style={{ '--ar': t.ar } as CSSProperties}>
+            <img src={t.img} alt={t.alt} loading="lazy" decoding="async" />
+            <figcaption><h4>{t.title}</h4><p className="meta">{[t.kind, t.by].filter(Boolean).join(', ')}</p></figcaption>
+          </figure>
+        ))}
+      </div>
+      <div className="container">
+        <div className="reel-ctl">
+          <button type="button" onClick={() => go(-1)}>Previous</button>
+          <button type="button" onClick={() => go(1)}>Next</button>
+        </div>
+        <div className="grid index">
+          {index.map((g) => (
+            <div key={g.category} className="index-col">
+              <h3>{g.category}</h3>
+              <ul>{g.items.map((it) => <li key={it.title}>{it.title}{it.by && <span className="meta">{it.by}</span>}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

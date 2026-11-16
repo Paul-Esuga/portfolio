@@ -1,2 +1,15 @@
-import type { CSSProperties } from 'react';
-export default function TextLift({ children }: { children: string }) { return <span className="text-lift" aria-hidden="true">{Array.from(children).map((character,index)=><span className="lift-char" key={`${character}-${index}`} style={{'--index':index} as CSSProperties}><i>{character===' '?'\u00a0':character}</i><i>{character===' '?'\u00a0':character}</i></span>)}</span>; }
+import { Fragment, type CSSProperties } from 'react'
+/** Per-character lift. Put `lift-host` on the link/button that contains it so hover and focus trigger it. */
+export default function TextLift({ children }: { children: string }) {
+  return (
+    <span className="lift" aria-label={children}>
+      {children.split(' ').map((word, w, all) => (
+        <Fragment key={w}><span className="lift-w" aria-hidden="true">
+          {[...word].map((c, i) => (
+            <span className="lift-c" key={i} style={{ '--n': i + w * 3 } as CSSProperties}><i>{c}</i><i>{c}</i></span>
+          ))}
+          </span>{w < all.length - 1 ? ' ' : null}</Fragment>
+      ))}
+    </span>
+  )
+}

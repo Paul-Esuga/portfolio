@@ -1,4 +1,28 @@
-import { useParallax } from '../hooks/useParallax';
-import ent from '../assets/stills/ent.webp'; import site from '../content/site';
-import TextLift from './TextLift';
-export default function Contact() { const photo=useParallax<HTMLDivElement>(.08); return <footer id="contact" className="contact"><div ref={photo} className="photo" style={{backgroundImage:`url(${ent})`}} aria-hidden="true"/><span className="eyebrow">{site.contactEyebrow}</span><a className="cta" href={`mailto:${site.email}`} aria-label={site.contactCta}><TextLift>{site.contactCta}</TextLift></a><div className="credits"><div><b>{site.creditBy}</b>{site.name}</div><div><b>{site.creditElsewhere}</b>{site.linkedin&&<a href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>}{site.github&&<a href={site.github} target="_blank" rel="noreferrer">GitHub ↗</a>}</div><div><b>{site.creditLocation}</b>{site.location}</div></div><p className="end">{site.closing}</p></footer>; }
+import { useRef } from 'react'
+import { credit, site } from '../content/site'
+import { stills } from '../content/stills'
+import { useParallax } from '../hooks/useParallax'
+import TextLift from './TextLift'
+
+export default function Contact() {
+  const layer = useRef<HTMLDivElement>(null)
+  useParallax(layer, 0.1)
+  return (
+    <section id="contact" className="contact">
+      <div ref={layer} className="plx" role="img" aria-label="An animated couple talking across a diner table, from Entergalactic" style={{ backgroundImage: `url(${stills.ent})` }} />
+      <div className="contact-shade" aria-hidden="true" />
+      <div className="container contact-in">
+        <h2><a className="lift-host cta" href={`mailto:${site.email}`}><TextLift>Say hello</TextLift></a></h2>
+        <div className="grid credits">
+          <p><span className="meta">Email</span><a href={`mailto:${site.email}`}>{site.email}</a></p>
+          {(site.linkedin || site.github) && (
+            <p><span className="meta">Elsewhere</span>
+              {site.linkedin && <a href={site.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
+              {site.github && <a href={site.github} target="_blank" rel="noreferrer">GitHub</a>}</p>)}
+          <p><span className="meta">Written, designed and built by</span>{site.name}</p>
+        </div>
+        <p className="meta fine">{credit}</p>
+      </div>
+    </section>
+  )
+}

@@ -1,5 +1,23 @@
-import { useReveal } from '../hooks/useReveal';
-import { useParallax } from '../hooks/useParallax';
-import tdkr from '../assets/stills/tdkr.webp';
-import site from '../content/site';
-export default function About() { const text=useReveal<HTMLDivElement>(); const image=useParallax<HTMLDivElement>(); return <section id="about" className="about"><div className="pic" role="img" aria-label={site.aboutImageAlt}><div ref={image} className="photo" style={{backgroundImage:`url(${tdkr})`}}/></div><div className="txt rv" ref={text}><span className="eyebrow">{site.aboutEyebrow}</span>{site.aboutParagraphs.map(p=><p key={p}>{p}</p>)}<div className="focus">{site.focus.map(x=><span key={x}>{x}</span>)}</div></div></section>; }
+import { useRef } from 'react'
+import { about } from '../content/site'
+import { stills } from '../content/stills'
+import { useParallax } from '../hooks/useParallax'
+
+export default function About() {
+  const layer = useRef<HTMLDivElement>(null)
+  useParallax(layer, 0.1)
+  return (
+    <section id="about" className="about section">
+      <div className="grid about-grid">
+        <div className="about-img">
+          <div ref={layer} className="plx" role="img" aria-label={about.alt} style={{ backgroundImage: `url(${stills.tdkr})` }} />
+        </div>
+        <div className="about-text">
+          <h2>{about.heading}</h2>
+          {about.paragraphs.map((p, i) => <p key={i} className={i === 0 ? 'lead' : undefined}>{p}</p>)}
+          <ul className="focus" aria-label="Areas of focus">{about.focus.map((f) => <li key={f}>{f}</li>)}</ul>
+        </div>
+      </div>
+    </section>
+  )
+}

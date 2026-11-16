@@ -1,8 +1,31 @@
-import { Link } from 'react-router-dom';
-import { projects } from '../content/projects';
-import ProjectVisual from './ProjectVisual';
-import { useReveal } from '../hooks/useReveal';
-import site from '../content/site';
-import TextLift from './TextLift';
-function WorkItem({ index }: { index:number }) { const p=projects[index]; const ref=useReveal<HTMLElement>(); return <article ref={ref} className={`proj rv ${index===1?'r':''} ${index===2?'s':''}`}><Link className="vis-link" to={`/work/${p.slug}`} aria-label={`${p.title} — ${site.projectLinkLabel}`}><ProjectVisual type={p.visual}/></Link><div className="info"><span className="num">{p.number}</span><h3><Link to={`/work/${p.slug}`} aria-label={p.title}><TextLift>{p.title}</TextLift></Link></h3><p>{p.summary}</p><span className="status">{p.status}</span><div className="tech">{p.stack.join(' · ')}</div><Link className="more" to={`/work/${p.slug}`} aria-label={site.caseStudyLink}><TextLift>{site.caseStudyLink}</TextLift></Link></div></article>; }
-export default function WorkList() { const head=useReveal<HTMLDivElement>(); return <section id="work"><div className="wrap"><div className="work-h rv" ref={head}><div><span className="eyebrow">{site.workEyebrow}</span><h2>{site.workTitle}<br/>{site.workTitleEnd.split(' ').slice(0,-2).join(' ')} <em>{site.workTitleEnd.split(' ').slice(-2).join(' ')}</em></h2></div><p>{site.workIntro}</p></div>{projects.map((p,i)=><WorkItem key={p.slug} index={i}/>)}</div></section>; }
+import { Link } from 'react-router-dom'
+import { projects } from '../content/projects'
+import ProjectVisual from './ProjectVisual'
+import TextLift from './TextLift'
+
+export default function WorkList() {
+  return (
+    <section id="work" className="work section">
+      <div className="container">
+        <header className="grid work-head">
+          <h2>Selected work</h2>
+          <p className="lead">Some of it finished, some still in development. Each project says which.</p>
+        </header>
+        <ol className="projects">
+          {projects.map((p, i) => (
+            <li key={p.slug} className={`proj grid${i % 2 ? ' proj--flip' : ''}`}>
+              <Link to={`/work/${p.slug}`} className="proj-vis" aria-label={`${p.title}, case study`}><ProjectVisual kind={p.visual} /></Link>
+              <div className="proj-info">
+                <p className="meta">{p.status}</p>
+                <h3><Link to={`/work/${p.slug}`} className="lift-host"><TextLift>{p.title}</TextLift></Link></h3>
+                <p>{p.summary}</p>
+                <p className="meta">{p.stack.join(', ')}</p>
+                <Link to={`/work/${p.slug}`} className="btn">Read the case study</Link>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )
+}

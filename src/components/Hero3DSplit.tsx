@@ -1,6 +1,53 @@
-import { useRef } from 'react';
-import bb from '../assets/stills/bb.webp';
-import { useScrollProgress } from '../hooks/useScrollProgress';
-import { useReducedMotion } from '../hooks/useReducedMotion';
-import site from '../content/site';
-export default function Hero3DSplit() { const ref=useRef<HTMLElement>(null); const p=useScrollProgress(ref); const reduced=useReducedMotion(); const ease=p*p*(3-2*p); const [first,last]=site.name.split(' '); return <section className="hero" ref={ref} id="top"><div className="hero-stick"><div className="frame" role="img" aria-label="Three-panel Breaking Bad desert still" >{[0,1,2].map(i=><div className="panel" key={i} aria-hidden="true" style={reduced?{}:{transform:`translate3d(${(i-1)*ease*20}vw,${(i===1?-4:5)*ease}vh,${-ease*160}px) rotateY(${-(i-1)*ease*34}deg) scale(${1-ease*.14})`}}><i style={{backgroundImage:`url(${bb})`,left:`${i*-100}%`}} /></div>)}</div><div className="hero-scrim" aria-hidden="true"/><p className="after" style={{opacity:reduced?0:Math.max(0,Math.min(1,(p-.53)*2.8))}}>{site.tagline}</p><div className="hero-t" style={{opacity:reduced?1:Math.max(.55,1-p*1.1),transform:reduced?'none':`translateY(${-p*40}px)`}}><div><span className="eyebrow">{site.heroRole}</span><h1>{first}<br/><em>{last}</em></h1></div><p>{site.heroIntro}</p></div><span className="scrollcue" aria-hidden="true">{site.heroScroll}</span></div></section>; }
+import { useCallback, useRef, type CSSProperties } from 'react'
+import { Link } from 'react-router-dom'
+import { heroCards, site } from '../content/site'
+import { stills } from '../content/stills'
+import { useReducedMotion } from '../hooks/useReducedMotion'
+import { useScrollProgress } from '../hooks/useScrollProgress'
+
+const smooth = (x: number) => { const t = Math.min(1, Math.max(0, x)); return t * t * (3 - 2 * t) }
+
+/** One frame -> splits into three cards -> each flips to reveal its own text. All driven by scroll. */
+export default function Hero3DSplit() {
+  const root = useRef<HTMLElement>(null)
+  const reduced = useReducedMotion()
+
+  const onProgress = useCallback((p: number) => {
+    const el = root.current
+    if (!el) return
+    el.style.setProperty('--intro', String(1 - smooth(p / 0.1)))
+    el.style.setProperty('--e', String(smooth((p - 0.12) / 0.3)))
+    el.querySelectorAll<HTMLElement>('.panel').forEach((panel, i) => {
+      const f = smooth((p - (0.3 + i * 0.12)) / 0.3)
+      panel.style.setProperty('--f', String(f))
+      panel.toggleAttribute('data-flipped', f > 0.96)
+    })
+  }, [])
+  useScrollProgress(root, onProgress, !reduced)
+
+  return (
+    <section id="top" ref={root} className={`hero${reduced ? ' hero--static' : ''}`} aria-label="Introduction">
+      <div className="stick">
+        <div className="frame">
+          {heroCards.map((c, i) => (
+            <div className="panel" key={c.title} data-flipped={reduced ? '' : undefined}
+              style={{ '--i': i, '--d': i - 1, '--m': i === 1 ? 1 : 0 } as CSSProperties}>
+              <div className="face front" aria-hidden="true"><i style={{ backgroundImage: `url(${stills.bb})` }} /></div>
+              <div className="face back" data-tone={c.tone}>
+                <h2>{c.title}</h2>
+                <p>{c.text}</p>
+                <Link to={c.to} className="btn btn--ghost">{c.cta}</Link>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="shade" aria-hidden="true" />
+        <div className="hero-intro">
+          <h1>{site.name}</h1>
+          <p>{site.intro}</p>
+        </div>
+        <p className="visually-hidden">{site.heroAlt}</p>
+      </div>
+    </section>
+  )
+}
