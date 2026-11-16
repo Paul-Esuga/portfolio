@@ -1,6 +1,6 @@
 # Paul Esuga: portfolio
 
-Personal portfolio for Paul Esuga, a Software Engineering student at Pan-Atlantic University, Lagos. It shows four projects with a dedicated case-study page for each, plus experience, education and an archive of the films, shows and music that shape his taste.
+Personal portfolio for Paul Esuga (24120112061), a Software Engineering student at Pan-Atlantic University, Lagos. It shows four projects with a dedicated case-study page for each, plus experience, education and an archive of the films, shows and music that shape his taste.
 
 Built for a university assignment. Responsive from 320px to desktop, keyboard accessible, and it respects reduced-motion settings.
 
