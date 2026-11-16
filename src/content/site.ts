@@ -26,7 +26,7 @@ export const about = {
   heading: 'I like problems that push back.',
   paragraphs: [
     'I’m Paul, a Software Engineering student at Pan-Atlantic University. Most of my time goes into building things and then trying to break them.',
-    'I’ve carried out security assessments and written VAPT reports, and I’ve built software on the other side of that fence too. AI, fintech and product thinking keep pulling me in.',
+    'I spent two years as a cybersecurity analyst running vulnerability assessments and penetration tests, and I’ve since interned in AI/ML and software development. AI, fintech and product thinking keep pulling me in.',
     'Away from the screen it’s films, television, albums and podcasts. I notice framing, pacing and the choices nobody asked for, and that habit follows me into code.',
   ],
   focus: ['Software engineering', 'AI and machine learning', 'Cybersecurity', 'Fintech', 'Product'],

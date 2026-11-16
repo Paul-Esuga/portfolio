@@ -9,7 +9,7 @@ export default function WorkList() {
       <div className="container">
         <header className="grid work-head">
           <h2>Selected work</h2>
-          <p className="lead">Some of it finished, some still in development. Each project says which.</p>
+          <p className="lead">A demo-day product, client security work, an AI proof of concept and a group build. Confidential details stay confidential.</p>
         </header>
         <ol className="projects">
           {projects.map((p, i) => (
