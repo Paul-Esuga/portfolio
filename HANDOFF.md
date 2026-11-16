@@ -3,7 +3,7 @@
 Read this first. It says what the project is, how Paul likes to work, what is done, and what is left. Put it at the repo root and keep it updated.
 
 ## 1. The project
-Personal portfolio for **Paul Esuga** (2nd-year BSc Software Engineering, Pan-Atlantic University, Lagos) for a university assignment. Repo: `https://github.com/Paul-Esuga/portfolio.git`.
+Personal portfolio for **Paul Esuga** (4th-year BSc Software Engineering, Pan-Atlantic University, Lagos) for a university assignment. Repo: `https://github.com/Paul-Esuga/portfolio.git`.
 
 **Assignment must-haves:** at least 3 projects shown prominently; a dedicated project detail page (overview, problem, contribution, features, screenshots or visuals, technologies, challenges, lessons); responsive on desktop, tablet and mobile; accessible; working links only; **regular commits and pushes over time** (the lecturer reads the history).
 
@@ -79,15 +79,20 @@ src/
 
 6. **Chunk 6, polish and QA:** accessibility pass (axe is clean on every route at 1440, 768, 390, 360, 320 and reduced motion); hero card links are now keyboard reachable (focus jumps the scroll to the point where all three cards are flipped; links were `visibility:hidden` before, which skipped them); h1 now comes first in reading order; skip link and route changes move focus to `<main>`; archive tile titles are `h3`; project-visual links are decorative duplicates (`aria-hidden`, `tabIndex=-1`); nav mark name fixed on small screens; `TextLift` has a real visually-hidden text; favicon (SVG sunset mark), apple-touch icon, meta description, Open Graph and Twitter tags, theme colour; `og.png` share card; `mavi.webp` 273 KB to 157 KB; `vercel.json` (SPA rewrite, immutable asset caching); README.
 
+7. **Chunk 7, carousel and work covers:** the archive is now a centred carousel (one frame fills most of the screen, neighbours peek on both sides, scroll-snap, depth and parallax driven by scroll, drag, arrow keys, Previous/Next, progress bar, click a neighbour to bring it in). Fleabag is dropped from the reel (still in the text index). The "illustrative concept" tiles are gone: `ProjectVisual.tsx` is replaced by `ProjectCover.tsx`. Probabli and SIBAS use their real screenshots on a coloured ground; the cybersecurity and chatbot tiles are type-led cards that use only facts already on the CV and pages (no mock UI). Each project has a `cover` field in `projects.ts`.
+
+8. **Chunk 9, covers, interlude, content and speed:** work covers now show images exactly as they are, in a chalk border with a hard offset shadow (flame or amber), with no coloured background (`ProjectCover.tsx`; `Cover` is `shot` or `stack` in `projects.ts`). Cybersecurity has three real scan screenshots (the target address and a client page title are pixelated), stacked on the home tile and shown with captions on its page. The chatbot cover and gallery use Paul's AWS architecture diagram; its Technologies text and stack now mention API Gateway, DynamoDB and Titan embeddings, read from that diagram. Challenges and lessons added for the chatbot and SIBAS from Paul's own points (lessons are drafted wording, to be confirmed by Paul). New `Interlude.tsx` between Work and Experience: two pinned prints (Ted Mosby still, SpongeBob "get a job" soup) with one line of copy and a slight parallax. Ben 10 still added to the archive reel. Performance: parallax images are lazy `<img>` instead of CSS backgrounds, the hero image is preloaded, Google Fonts CSS no longer blocks first paint, `robots.txt` added (the SPA fallback was serving HTML for it, which Lighthouse flagged), security headers in `netlify.toml`. First-load transfer fell from 367 KB to 180 KB in a local test.
+
+Lighthouse on the live site (Paul's run, with browser extensions active, so it was unreliable): mobile 32, desktop 39 performance; 100 accessibility; 73 best practices; 92 SEO. A local profile at 4x CPU slowdown showed about 170 ms blocking time, so most of the gap is extensions (Grammarly appears in the report). Re-run in an incognito window before judging.
+
 ## 9. To do (in priority order)
-1. **After the first Vercel deploy:** replace `YOUR-SITE.vercel.app` in `index.html` (og:url and og:image) with the real address, then run Lighthouse (performance and accessibility) on the live URL and fix anything it flags. Lighthouse has not been run yet; axe has.
-2. **Content gaps:** chatbot challenges and lessons (the section is skipped while empty); SIBAS challenges and lessons; optional real Probabli landing-page screenshot.
-3. **Images:** replace the watermarked Fleabag still with a clean frame; optional Ben 10 image; more stills as Paul collects them. Unused files that can be removed: `src/assets/stills/predicLanding.webp`, `bj.webp`, `himym.webp` (not imported anywhere).
+1. **Re-run Lighthouse in an incognito window** (extensions disabled) on the live URL, mobile and desktop, and fix anything real that remains.
+2. **Content:** Paul to confirm the drafted lessons and the SIBAS contribution wording; the two cybersecurity challenge bullets and its lesson were written by an earlier agent, not from Paul's words, so confirm or replace them; real SIBAS app screenshot when Paul has one.
+3. **Images:** SIBAS currently uses the ERD; swap in an app screenshot when available. Unused files that can be removed: `src/assets/stills/fleabag.webp`, `predicLanding.webp`, `bj.webp`, `himym.webp`, and `vercel.json`.
 4. **Repo hygiene:** confirm `.gitignore` has `reference-private/`, `*.docx`, `*.pdf`, `.env*` (see `gitignore-additions.txt` in the chunk 6 zip); final tidy commit.
 5. **Optional polish:** the hero image is a CSS background set from React, so the browser finds it late (LCP). Consider rendering it as an `<img fetchpriority="high">`. Retune hero timing or card colours if Paul asks.
 
 ## 10. Known issues
-- Fleabag still has an "itsmeirem" watermark and baked-in subtitles.
 - Several stills are upscaled from about 650px sources and look soft full-bleed.
 - The Fraunces stand-in will change slightly if Recoleta is installed.
 - Tested in Chromium via Playwright only (no Safari or Firefox). The hero uses 3D transforms with `backface-visibility`, so check Safari on a real device.
@@ -97,4 +102,4 @@ src/
 `npm run build`, then `npx vite preview --port 4173` (start it detached, in the same command as the tests, or it may be killed), then Playwright at 1440x900, 768x1024, 390x800, 360x780 and `reduced_motion='reduce'`. Check no horizontal overflow (`documentElement.scrollWidth`), no page errors, hero stages at scroll fractions 0, .25, .5, .8, 1 of `#top`.height minus viewport height, every route (`/`, `/work/<slug>` for all four, a bad slug), and that the nav fits at 320px.
 
 ## 12. Decisions made
-Deploy target: **Vercel**. Security page: **sectors only, no client names** (it currently names none; it says payments, cloud and API security, and microfinance). Open: any real Probabli screens beyond the dashboard?
+Deploy target: **Netlify**, live at https://polite-shortbread-5563c6.netlify.app (Vercel blocked Paul with a 2FA prompt he never set up; `vercel.json` is unused and can be removed). Config is `netlify.toml` (build, publish `dist`, SPA fallback). Security page: **sectors only, no client names** (it currently names none; it says payments, cloud and API security, and microfinance). Open: any real Probabli screens beyond the dashboard?
