@@ -4,13 +4,13 @@ import { stills } from '../content/stills'
 import { useParallax } from '../hooks/useParallax'
 
 export default function About() {
-  const layer = useRef<HTMLDivElement>(null)
+  const layer = useRef<HTMLImageElement>(null)
   useParallax(layer, 0.1)
   return (
     <section id="about" className="about section">
       <div className="grid about-grid">
         <div className="about-img">
-          <div ref={layer} className="plx" role="img" aria-label={about.alt} style={{ backgroundImage: `url(${stills.tdkr})` }} />
+          <img ref={layer} className="plx" src={stills.tdkr} alt={about.alt} loading="lazy" decoding="async" />
         </div>
         <div className="about-text">
           <h2>{about.heading}</h2>

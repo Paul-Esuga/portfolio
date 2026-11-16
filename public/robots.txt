@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://polite-shortbread-5563c6.netlify.app/sitemap.xml

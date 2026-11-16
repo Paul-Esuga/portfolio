@@ -5,11 +5,11 @@ import { useParallax } from '../hooks/useParallax'
 import TextLift from './TextLift'
 
 export default function Contact() {
-  const layer = useRef<HTMLDivElement>(null)
+  const layer = useRef<HTMLImageElement>(null)
   useParallax(layer, 0.1)
   return (
     <section id="contact" className="contact">
-      <div ref={layer} className="plx" role="img" aria-label="An animated couple talking across a diner table, from Entergalactic" style={{ backgroundImage: `url(${stills.ent})` }} />
+      <img ref={layer} className="plx" src={stills.ent} alt="An animated couple talking across a diner table, from Entergalactic" loading="lazy" decoding="async" />
       <div className="contact-shade" aria-hidden="true" />
       <div className="container contact-in">
         <h2><a className="lift-host cta" href={`mailto:${site.email}`}><TextLift>Say hello</TextLift></a></h2>

@@ -103,7 +103,7 @@ export default function Archive() {
               onClick={() => { if (!justDragged.current && i !== active) goTo(i) }}>
               <figure>
                 <div className="slide-media">
-                  <img src={t.img} alt={t.alt} loading={i < 2 ? "eager" : "lazy"} decoding="async" draggable={false} />
+                  <img src={t.img} alt={t.alt} loading="lazy" decoding="async" draggable={false} />
                 </div>
                 <figcaption><h3>{t.title}</h3><p className="meta">{[t.kind, t.by].filter(Boolean).join(', ')}</p></figcaption>
               </figure>
