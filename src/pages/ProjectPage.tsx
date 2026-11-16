@@ -17,7 +17,9 @@ export default function ProjectPage() {
   useEffect(() => { document.title = i < 0 ? 'Not found | Paul Esuga' : `${projects[i].title} | Paul Esuga` }, [i])
   if (i < 0) return <NotFound />
   const p = projects[i], next = projects[(i + 1) % projects.length]
-  const gallery = (p.gallery ?? []).filter((g) => p.cover.type !== 'shot' || g.src !== p.cover.src)
+  const cover = p.cover
+  const lead = cover.type === 'shot' ? p.gallery?.find((g) => g.src === cover.src) : undefined
+  const gallery = (p.gallery ?? []).filter((g) => cover.type !== 'shot' || g.src !== cover.src)
   return (
     <article className="case">
       <header className="container case-head">
@@ -29,7 +31,14 @@ export default function ProjectPage() {
           <div><dt className="meta">Stack</dt><dd>{p.stack.join(', ')}</dd></div>
         </dl>
       </header>
-      <div className="container"><div className="case-vis"><ProjectCover cover={p.cover} /></div></div>
+      {p.cover.type === 'shot' && (
+        <div className="container">
+          <figure className="case-vis">
+            <ProjectCover cover={p.cover} />
+            {lead && <figcaption className="meta">{lead.caption}</figcaption>}
+          </figure>
+        </div>
+      )}
       {p.sections.filter((s) => s.body.length > 0).map((s) => (
         <section key={s.heading} className="container grid case-sec">
           <h2>{s.heading}</h2>

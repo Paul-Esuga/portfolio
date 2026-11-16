@@ -1,9 +1,10 @@
 import { shots } from './shots'
 
-export type Tone = 'flame' | 'ember' | 'lift' | 'abyss' | 'chalk'
+export type Accent = 'flame' | 'amber'
+/** Images are shown as they are, with a border and a hard offset shadow in the accent colour. No coloured backgrounds. */
 export type Cover =
-  | { type: 'shot'; src: string; alt: string; tone: Tone }
-  | { type: 'facts'; tone: Tone; big: string; bigLabel: string; lines: string[] }
+  | { type: 'shot'; src: string; alt: string; accent: Accent }
+  | { type: 'stack'; accent: Accent; shots: { src: string; alt: string }[] }
 
 export type Project = {
   slug: string
@@ -12,7 +13,7 @@ export type Project = {
   role: string
   stack: string[]
   summary: string
-  /** The tile on the home page and the lead image on the case page. Real screenshots where they exist, otherwise facts set in type. */
+  /** The tile on the home page, and the lead image on the case page. */
   cover: Cover
   /** Body items starting with "- " render as list items. Sections with an empty body are skipped. */
   sections: { heading: string; body: string[] }[]
@@ -28,7 +29,7 @@ export const projects: Project[] = [
     role: 'Product concept, interface design, full-stack build',
     stack: ['React', 'TypeScript', 'Tailwind CSS', 'Express', 'Prisma', 'PostgreSQL'],
     summary: 'A gamified prediction market for PAU students, built around campus sport.',
-    cover: { type: 'shot', src: shots.probabliDashboard, alt: 'The Probabli trader dashboard with virtual balance, win streak, market pulse and upcoming events.', tone: 'flame' },
+    cover: { type: 'shot', src: shots.probabliDashboard, alt: 'The Probabli trader dashboard with virtual balance, win streak, market pulse and upcoming events.', accent: 'flame' },
     sections: [
       { heading: 'Overview', body: [
         'Probabli (originally called PredicPAU) turns PAU sports fixtures, such as Coupe de Escriva matches, into simulated prediction markets. Students receive virtual currency and buy YES or NO shares on an outcome, and the prices show what the crowd expects to happen.',
@@ -69,11 +70,15 @@ export const projects: Project[] = [
     role: 'Cybersecurity analyst, Panoramic Synergy Enterprises (Aug 2022 to Sep 2024)',
     stack: ['Nessus', 'Metasploit', 'Burp Suite', 'OWASP ZAP', 'Kali Linux', 'Pacu', 'ScoutSuite'],
     summary: 'Two years of vulnerability assessments and penetration tests, finished as CVSS-scored client reports.',
-    cover: { type: 'facts', tone: 'abyss', big: '80%+', bigLabel: 'remediation rate on CVSS-scored client reports', lines: ['50+ critical vulnerabilities identified', '500 to 1,000+ endpoints and cloud assets assessed'] },
+    cover: { type: 'stack', accent: 'amber', shots: [
+      { src: shots.vulnNmap, alt: 'Nmap output for an Apache web server, followed by known vulnerabilities with severity scores.' },
+      { src: shots.vulnCiphers, alt: 'A TLS cipher scan showing deprecated protocol versions accepted.' },
+      { src: shots.vulnSslscan, alt: 'A TLS protocol check with TLS 1.0 and 1.1 enabled. The server address is blurred.' },
+    ] },
     sections: [
       { heading: 'Overview', body: [
         'Over two years as a cybersecurity analyst I ran vulnerability assessments across 500 to 1,000+ endpoints and network and cloud assets. I identified 50+ critical vulnerabilities, and the CVSS-scored reports I delivered led to a remediation rate above 80%.',
-        'Client reports are confidential, so this page shows the method and an illustrative example, not real findings.',
+        'Client reports are confidential, so this page shows the method and real scan output from my testing, with the target’s address and name blurred.',
       ] },
       { heading: 'The problem', body: [
         'Organisations need to know where their systems are weak, how serious each weakness is and what to fix first. A scan result is not enough on its own.',
@@ -97,15 +102,20 @@ export const projects: Project[] = [
       ] },
       { heading: 'Lessons learned', body: ['A finding only has value if someone can fix it. The report matters as much as the exploit.'] },
     ],
+    gallery: [
+      { src: shots.vulnNmap, alt: 'Nmap output for an Apache web server on port 80, followed by a list of known vulnerabilities, each with a severity score.', caption: 'A service scan lists known vulnerabilities for the web server version, each with a severity score. Target details are blurred.' },
+      { src: shots.vulnCiphers, alt: 'A TLS cipher scan showing TLS 1.0, 1.1 and 1.2 accepted, including a 3DES cipher suite.', caption: 'A cipher scan shows deprecated TLS versions and a 3DES cipher suite still accepted.' },
+      { src: shots.vulnSslscan, alt: 'A TLS protocol check showing SSLv2 and SSLv3 disabled, TLS 1.0, 1.1 and 1.2 enabled, TLS 1.3 disabled, and no support for TLS fallback SCSV. The server address is blurred.', caption: 'A protocol check shows TLS 1.0 and 1.1 still enabled, TLS 1.3 not enabled and no fallback protection. The server address is blurred.' },
+    ],
   },
   {
     slug: 'ai-chatbot',
     title: 'AI chatbot for a women’s products platform',
     status: 'Professional work',
     role: 'AI/ML and DevOps intern, Datamellon (Jul to Aug 2026): chatbot build and front-end UI',
-    stack: ['Amazon Bedrock', 'Amazon S3', 'Amazon OpenSearch', 'AWS Lambda'],
+    stack: ['Amazon Bedrock', 'Amazon S3', 'Amazon OpenSearch Serverless', 'AWS Lambda', 'API Gateway', 'DynamoDB'],
     summary: 'A retrieval-augmented chatbot on Amazon Bedrock that answers from a client’s own documents.',
-    cover: { type: 'facts', tone: 'ember', big: 'RAG', bigLabel: 'Retrieval-augmented generation on Amazon Bedrock', lines: ['Client documents ingested into a knowledge base', 'Front-end UI designed from concept to build'] },
+    cover: { type: 'shot', src: shots.chatbotArchitecture, alt: 'Architecture diagram: a user calls API Gateway, which triggers a request Lambda that retrieves content from an OpenSearch vector store, stores chat history in DynamoDB and generates a response with a Bedrock model. A second Lambda uploads documents to S3 for ingestion.', accent: 'flame' },
     sections: [
       { heading: 'Overview', body: [
         'A retrieval-augmented generation (RAG) chatbot proof of concept built on Amazon Bedrock at Datamellon, an AWS Advanced Tier Services Partner, for a client platform focused on women’s products. Company documents are ingested into a knowledge base, and the chatbot answers questions from that content in under 5 to 10 seconds.',
@@ -121,7 +131,17 @@ export const projects: Project[] = [
         '- Responses in under 5 to 10 seconds',
         '- Built to show sources and handle follow-up questions',
       ] },
-      { heading: 'Technologies', body: ['Amazon Bedrock for the model and knowledge base, Amazon S3 for document storage, Amazon OpenSearch as the vector store, and AWS Lambda for the backend.'] },
+      { heading: 'Technologies', body: ['Amazon Bedrock for the model and knowledge base, with Amazon Titan embeddings. Amazon S3 holds the documents and Amazon OpenSearch Serverless is the vector store. API Gateway fronts two Lambda functions, one for chat requests and one for document uploads, and DynamoDB keeps the chat history so follow-up questions have context.'] },
+      { heading: 'Challenges', body: [
+        '- Getting the vector store working took the longest. Amazon OpenSearch Serverless kept returning the same error when I created a collection by hand and connected it to the knowledge base, and creating it inside the knowledge-base setup flow failed several times. I eventually worked out how to create the collection manually and then link it.',
+        '- Cost. Two OpenSearch Serverless collections were running in the Europe (Stockholm) region and had nearly used up the free-tier and promotional credits.',
+        '- Timing. I was working on a certification at the same time, and the first version of the chatbot experience was poor.',
+      ] },
+      { heading: 'Lessons learned', body: [
+        '- Doing a step by hand showed me what the automated setup was doing, and that is what finally got the vector store connected.',
+        '- Managed services keep billing while they sit idle, so clearing out unused resources and watching usage belongs in the plan from the start.',
+        '- A working pipeline is not a good chatbot. The experience needs its own time, which a crowded schedule took away at first.',
+      ] },
     ],
   },
   {
@@ -131,7 +151,7 @@ export const projects: Project[] = [
     role: 'Database design and setup, group project (DTS304)',
     stack: ['Python', 'Streamlit', 'PostgreSQL', 'pandas', 'Altair', 'bcrypt'],
     summary: 'The Student/Instructor-Based Attendance System: attendance and records for admins, lecturers and students.',
-    cover: { type: 'shot', src: shots.sibasErd, alt: 'Entity relationship diagram for SIBAS: users, students, lecturers, courses, enrollments, attendance sessions and records.', tone: 'lift' },
+    cover: { type: 'shot', src: shots.sibasErd, alt: 'Entity relationship diagram for SIBAS: users, students, lecturers, courses, enrollments, attendance sessions and records.', accent: 'amber' },
     sections: [
       { heading: 'Overview', body: [
         'SIBAS is a role-based web app for recording and reviewing class attendance, built for DTS304 at Pan-Atlantic University. Admins manage users, students and courses. Lecturers take attendance and upload class data. Students see their own attendance and courses.',
@@ -147,6 +167,16 @@ export const projects: Project[] = [
         '- Hashed passwords and chart-based reporting',
       ] },
       { heading: 'Technologies', body: ['Python and Streamlit for the application, PostgreSQL for the database, pandas and Altair for data and charts, and bcrypt for password hashing.'] },
+      { heading: 'Challenges', body: [
+        '- The relationships were the hardest part of the schema. Students, lecturers, courses, enrollments and attendance connect through one-to-many and many-to-many relationships, and some records depend on others to exist at all, so there were many connected parts to keep consistent.',
+        '- The work was not shared evenly. Most of the build fell to a teammate and me.',
+        '- The Streamlit app did not connect to the database at first, and it took several fixes before the two talked to each other.',
+      ] },
+      { heading: 'Lessons learned', body: [
+        '- Settle the schema first. Every decision about a relationship shows up later in a query and a screen.',
+        '- Test the connection between the app and the database early, before building screens on top of it.',
+        '- When a group is uneven, agree who owns what at the start and check in often.',
+      ] },
     ],
     gallery: [
       { src: shots.sibasErd, alt: 'Entity relationship diagram for SIBAS showing users, students, lecturers, courses, enrollments, attendance sessions and records.', caption: 'Database design: 12 tables covering users and roles, courses, enrollments and attendance.', wide: true },
