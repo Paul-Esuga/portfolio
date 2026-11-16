@@ -8,7 +8,6 @@ export const reel: Tile[] = [
   { title: 'Breaking Bad', kind: 'Television', img: stills.bb, ar: 1.78, alt: 'A white van below a red mesa at dusk.' },
   { title: 'Work of Art', kind: 'Music', by: 'Asake', img: stills.asake, ar: 1, alt: 'Album art: Asake in a pinstripe suit in front of paintings.' },
   { title: 'Oppenheimer', kind: 'Film', img: stills.opp, ar: 1.78, alt: 'Black-and-white portrait of a man in round glasses and a pinstripe suit.' },
-  { title: 'Fleabag', kind: 'Television', img: stills.fleabag, ar: 1.41, alt: 'Two people sitting together at a bus stop at night.' },
   { title: 'Game of Thrones', kind: 'Television', img: stills.got, ar: 1.78, alt: 'A rider with a banner on a hill, a castle in the distance.' },
   { title: 'Laughing So Hard, It Hurts', kind: 'Music', by: 'MAVI', img: stills.mavi, ar: 1, alt: 'Album art: a two-faced bust on a plinth.' },
   { title: 'How I Met Your Mother', kind: 'Television', img: stills.umbrellas, ar: 1.81, alt: 'A rainy street full of yellow umbrellas.' },
