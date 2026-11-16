@@ -11,6 +11,7 @@ export const reel: Tile[] = [
   { title: 'Game of Thrones', kind: 'Television', img: stills.got, ar: 1.78, alt: 'A rider with a banner on a hill, a castle in the distance.' },
   { title: 'Laughing So Hard, It Hurts', kind: 'Music', by: 'MAVI', img: stills.mavi, ar: 1, alt: 'Album art: a two-faced bust on a plinth.' },
   { title: 'How I Met Your Mother', kind: 'Television', img: stills.umbrellas, ar: 1.81, alt: 'A rainy street full of yellow umbrellas.' },
+  { title: 'Ben 10', kind: 'Television', img: stills.ben10, ar: 1.78, alt: 'Ben lying back in a green and black jacket, wrapped in an orange glow.' },
   { title: 'Avengers: Infinity War', kind: 'Film', img: stills.thanos, ar: 2.39, alt: 'Thanos looking out at a sunset.' },
 ]
 

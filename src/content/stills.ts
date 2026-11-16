@@ -9,5 +9,8 @@ import opp from '../assets/stills/opp.webp'
 import mavi from '../assets/stills/mavi.webp'
 import asake from '../assets/stills/asake.webp'
 import cmiyl from '../assets/stills/cmiyl.webp'
+import ted from '../assets/stills/ted.webp'
+import soup from '../assets/stills/soup.webp'
+import ben10 from '../assets/stills/ben10.webp'
 
-export const stills = { bb, tdkr, ent, bjSunset, thanos, got, umbrellas, opp, mavi, asake, cmiyl }
+export const stills = { bb, tdkr, ent, bjSunset, thanos, got, umbrellas, opp, mavi, asake, cmiyl, ted, soup, ben10 }
