@@ -21,3 +21,4 @@ ul,ol{margin:0;padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--amber);outline-offset:3px}
 @media (pointer:coarse){a,button{min-height:44px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+main:focus{outline:none}
