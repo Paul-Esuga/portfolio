@@ -30,9 +30,9 @@ Vite 6, React 19, TypeScript (strict), React Router 7. Plain CSS with custom pro
 
 `HANDOFF.md` has the design decisions, interaction notes and remaining work.
 
-## Deploy (Vercel)
+## Deploy (Netlify)
 
-Import the repo at vercel.com. The framework preset is Vite, the build command is `npm run build` and the output directory is `dist`. `vercel.json` sends every path to `index.html`, so links like `/work/probabli` work on refresh. After the first deploy, replace `YOUR-SITE.vercel.app` in `index.html` with the real address so share previews work.
+Import the repo at netlify.com. `netlify.toml` sets the build command (`npm run build`), the publish directory (`dist`) and a fallback to `index.html`, so links like `/work/probabli` work on refresh. If you rename the site or add a custom domain, update the two addresses in `index.html` so share previews work.
 
 ## Notes
 
