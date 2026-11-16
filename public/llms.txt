@@ -1,0 +1,11 @@
+# Paul Esuga
+
+> Software engineering student at Pan-Atlantic University working across software, AI and cybersecurity. This portfolio covers selected projects, experience, and the films, music and podcasts behind the work.
+
+## Pages
+
+- [Home](https://polite-shortbread-5563c6.netlify.app/): about, selected work, experience, archive and contact
+- [Probabli](https://polite-shortbread-5563c6.netlify.app/work/probabli): gamified prediction-market demo for PAU students
+- [Cybersecurity and VAPT](https://polite-shortbread-5563c6.netlify.app/work/cybersecurity-vapt): vulnerability assessment and penetration testing experience
+- [AI chatbot](https://polite-shortbread-5563c6.netlify.app/work/ai-chatbot): retrieval-augmented chatbot proof of concept on Amazon Bedrock
+- [SIBAS](https://polite-shortbread-5563c6.netlify.app/work/sibas): student and instructor attendance system with a PostgreSQL database
