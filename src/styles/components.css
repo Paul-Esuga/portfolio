@@ -175,3 +175,27 @@
 .case-gallery .is-wide{grid-column:1/-1}
 .case-gallery img{width:100%;height:auto;box-shadow:0 0 0 1px var(--line)}
 .case-gallery figcaption{margin-top:var(--s-2)}
+
+/* ---------- experience ---------- */
+.exp-grid{row-gap:var(--s-7)}
+.exp-side,.exp-list{grid-column:1/-1}
+.exp-side>*+*{margin-top:var(--s-5)}
+.exp-side .lead{margin-top:var(--s-3)}
+.exp-h{font:400 var(--t-1)/1.2 var(--disp);font-variation-settings:var(--soft);color:var(--amber);margin-bottom:var(--s-2)}
+.exp-side p .meta{display:block}
+.exp-row{display:grid;gap:var(--s-2);padding-block:var(--s-5);border-top:1px solid var(--line)}
+.exp-row:last-child{border-bottom:1px solid var(--line)}
+.exp-row h3{font-size:var(--t-3)}
+.exp-role{margin-top:var(--s-1);color:var(--amber);font-weight:500}
+.exp-row ul{margin-top:var(--s-3);display:grid;gap:var(--s-2)}
+.exp-row li{max-width:54ch;color:var(--text-dim)}
+@media (min-width:640px){.exp-row{grid-template-columns:9rem 1fr;gap:var(--s-4)}}
+@media (min-width:1024px){
+  .exp-side{grid-column:1/5;position:sticky;top:7rem;align-self:start}
+  .exp-list{grid-column:6/13}
+}
+/* short brand mark on very small screens so five nav items fit */
+.mark-short{display:none}
+@media (max-width:519px){.mark-full{display:none}.mark-short{display:inline}}
+@media (max-width:519px){.bar{padding-inline:12px}.nav a{padding:.5rem .4rem;font-size:.75rem}}
+@media (max-width:379px){.mark{display:none}.bar{justify-content:center}}

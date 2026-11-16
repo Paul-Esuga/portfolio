@@ -24,7 +24,7 @@ export default function Nav() {
 
   return (
     <header className="bar">
-      <Link className="mark" to="/" aria-label={`${site.name}, home`}>{site.name}</Link>
+      <Link className="mark" to="/" aria-label={`${site.name}, home`}><span className="mark-full">{site.name}</span><span className="mark-short" aria-hidden="true">PE</span></Link>
       <nav aria-label="Main" className="nav" onMouseLeave={() => setHover(null)}>
         <span className="pill" ref={pill} data-hover={hover ? '' : undefined} aria-hidden="true" />
         {nav.map((n) => (
