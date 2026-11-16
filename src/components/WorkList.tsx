@@ -14,7 +14,7 @@ export default function WorkList() {
         <ol className="projects">
           {projects.map((p, i) => (
             <li key={p.slug} className={`proj grid${i % 2 ? ' proj--flip' : ''}`}>
-              <Link to={`/work/${p.slug}`} className="proj-vis" aria-label={`${p.title}, case study`}><ProjectVisual kind={p.visual} /></Link>
+              <Link to={`/work/${p.slug}`} className="proj-vis" aria-hidden="true" tabIndex={-1}><ProjectVisual kind={p.visual} /></Link>
               <div className="proj-info">
                 <p className="meta">{p.status}</p>
                 <h3><Link to={`/work/${p.slug}`} className="lift-host"><TextLift>{p.title}</TextLift></Link></h3>

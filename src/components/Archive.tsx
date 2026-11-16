@@ -18,7 +18,7 @@ export default function Archive() {
         {reel.map((t) => (
           <figure className="tile" key={t.title} style={{ '--ar': t.ar } as CSSProperties}>
             <img src={t.img} alt={t.alt} loading="lazy" decoding="async" />
-            <figcaption><h4>{t.title}</h4><p className="meta">{[t.kind, t.by].filter(Boolean).join(', ')}</p></figcaption>
+            <figcaption><h3>{t.title}</h3><p className="meta">{[t.kind, t.by].filter(Boolean).join(', ')}</p></figcaption>
           </figure>
         ))}
       </div>
